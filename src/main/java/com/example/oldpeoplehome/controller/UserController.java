@@ -28,12 +28,14 @@ public class UserController {
     private StringRedisTemplate stringRedisTemplate;
 
     @PostMapping("/register")
-    public Result register(@Pattern(regexp = "^\\S{5,16}$") String username, @Pattern(regexp = "\\S{5,16}") String password) {
+    public Result register(@Pattern(regexp = "^\\S{5,16}$") String username,
+                           @Pattern(regexp = "\\S{5,16}") String password,
+                           String nickname) {
         //查询用户
         User u = userService.findByUserName(username);
         if (u == null) {
             //没有被占用，进行注册
-            userService.register(username, password);
+            userService.register(username, password, nickname);
             return Result.success();
         } else {
             //被占用

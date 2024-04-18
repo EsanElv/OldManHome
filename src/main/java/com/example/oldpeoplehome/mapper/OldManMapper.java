@@ -86,4 +86,7 @@ public interface OldManMapper {
             "</script>"
     })
     void update(OldManUpdateDTO oldManUpdateDTO);
+
+    @Delete("delete from old_man where id = #{id}")
+    void delete(Integer id);
 }

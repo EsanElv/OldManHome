@@ -1,6 +1,7 @@
 package com.example.oldpeoplehome.service;
 
 import com.example.oldpeoplehome.dto.CareAddDTO;
+import com.example.oldpeoplehome.dto.CareUpdateDTO;
 
 import java.util.List;
 
@@ -10,4 +11,8 @@ public interface CareService {
     <T> List<T> findList(Integer manId, Integer nurId, T dto);
 
     void add(CareAddDTO careAddDTO);
+
+    void update(CareUpdateDTO careUpdateDTO);
+
+    void delete(Integer careId);
 }

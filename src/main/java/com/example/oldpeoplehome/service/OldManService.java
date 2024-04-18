@@ -22,4 +22,6 @@ public interface OldManService {
 
 
     Result update(OldManUpdateDTO oldManUpdateDTO);
+
+    void delete(Integer id);
 }

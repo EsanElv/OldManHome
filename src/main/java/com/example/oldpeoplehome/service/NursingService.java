@@ -19,4 +19,6 @@ public interface NursingService {
     void add(Nursing nursing);
 
     Result update(NurUpdateDTO nurUpdateDTO);
+
+    Result delete(Integer id);
 }

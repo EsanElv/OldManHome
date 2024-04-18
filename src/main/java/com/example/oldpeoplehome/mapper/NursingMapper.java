@@ -2,10 +2,8 @@ package com.example.oldpeoplehome.mapper;
 
 import com.example.oldpeoplehome.dto.NurUpdateDTO;
 import com.example.oldpeoplehome.pojo.Nursing;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.example.oldpeoplehome.pojo.Result;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -69,4 +67,7 @@ public interface NursingMapper {
             "</script>"
     })
     void update(NurUpdateDTO nurUpdateDTO);
+
+    @Delete("delete from nursing where id = #{id}")
+    void delete(Integer id);
 }

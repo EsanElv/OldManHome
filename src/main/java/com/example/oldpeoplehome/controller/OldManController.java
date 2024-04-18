@@ -164,4 +164,22 @@ public class OldManController {
 
     }
 
+    @DeleteMapping("/delete")
+    public Result delete(Integer id,
+                         @RequestHeader(value = "Authorization", required = false) String token){
+        if(id == null){
+            id = JwtUtil.checkToken(token,4);
+            if(id == -1){
+                return Result.error("No id or Type error!");
+            }
+        } else {
+            Integer adminId = JwtUtil.checkToken(token,2);
+            if(adminId == -1){
+                return Result.error("only administrator can delete");
+            }
+        }
+
+        oldManService.delete(id);
+        return Result.success();
+    }
 }

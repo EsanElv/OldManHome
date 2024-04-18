@@ -6,8 +6,6 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface AdminMapper {
-    @Select("select * from administrator where user_id = #{userId}")
-    Administrator findByUserId(Integer userId);
 
     @Select({
             "<script>",

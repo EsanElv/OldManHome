@@ -1,6 +1,7 @@
 package com.example.oldpeoplehome.service.Impl;
 
 import com.example.oldpeoplehome.mapper.UserMapper;
+import com.example.oldpeoplehome.mapper.VisitorMapper;
 import com.example.oldpeoplehome.pojo.*;
 import com.example.oldpeoplehome.service.*;
 import com.example.oldpeoplehome.utils.Md5Util;
@@ -23,6 +24,8 @@ public class UserServiceImpl implements UserService {
     private AdminService adminService;
     @Autowired
     private VisitorService visitorService;
+    @Autowired
+    private VisitorMapper visitorMapper;
     @Override
     public User findByUserName(String username){
         User u = userMapper.find(null,username);
@@ -30,7 +33,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void register(String username, String password){
+    public void register(String username, String password, String nickname){
         //加密
         String md5String = Md5Util.getMD5String(password);
         //创建对象
@@ -38,9 +41,15 @@ public class UserServiceImpl implements UserService {
         user.setUsername(username);
         user.setPassword(md5String);
         user.setType(1);
-        //添加
+        //添加用户表
         userMapper.add(user);
-
+        //添加游客表
+        User addedUser = userMapper.find(null, username);
+        Integer userId = addedUser.getUserId();
+        Visitor visitor = new Visitor();
+        visitor.setNickname(nickname);
+        visitor.setUserId(userId);
+        visitorMapper.add(visitor);
     }
 
 /*    @Override

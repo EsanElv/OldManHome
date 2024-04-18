@@ -129,4 +129,21 @@ public class NursingController {
         return nursingService.update(nurUpdateDTO);
 
     }
+
+    @DeleteMapping("/delete")
+    public Result delete(Integer id,
+                         @RequestHeader(value = "Authorization", required = false) String token){
+        if(id == null){
+            id = JwtUtil.checkToken(token,3);
+            if(id == -1){
+                return Result.error("No id or Type error!");
+            }
+        } else {
+            Integer adminId = JwtUtil.checkToken(token,2);
+            if(adminId == -1){
+                return Result.error("only administrator can delete");
+            }
+        }
+        return nursingService.delete(id);
+    }
 }

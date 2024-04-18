@@ -100,7 +100,7 @@ public class OldManServiceImpl implements OldManService {
         for (Field field : fields) {
             field.setAccessible(true);
             if (field.getName().equals("id") ||
-                field.getName().equals("username") ||
+                field.getName().equals("phone") ||
                 field.getName().equals("password") ||
                 field.getName().equals("avatar")) {
                 continue; // 跳过id属性
@@ -135,5 +135,12 @@ public class OldManServiceImpl implements OldManService {
             return Result.error("请更改至少一条信息");
         }
         return Result.success();
+    }
+
+    @Override
+    public void delete(Integer id) {
+        OldMan oldMan = oldManMapper.find(id, null, null, null);
+        oldManMapper.delete(id);
+        userMapper.delete(oldMan.getUserId());
     }
 }

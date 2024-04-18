@@ -1,6 +1,7 @@
 package com.example.oldpeoplehome.service.Impl;
 
 import com.example.oldpeoplehome.dto.CareAddDTO;
+import com.example.oldpeoplehome.dto.CareUpdateDTO;
 import com.example.oldpeoplehome.mapper.CareMapper;
 import com.example.oldpeoplehome.mapper.NursingMapper;
 import com.example.oldpeoplehome.mapper.OldManMapper;
@@ -42,5 +43,17 @@ public class CareServiceImpl implements CareService {
     @Override
     public void add(CareAddDTO careAddDTO) {
         careMapper.add(careAddDTO);
+    }
+
+    @Override
+    public void update(CareUpdateDTO careUpdateDTO) {
+        System.out.println(careUpdateDTO.getCareId());
+        System.out.println(careUpdateDTO.getContent());
+        careMapper.update(careUpdateDTO);
+    }
+
+    @Override
+    public void delete(Integer careId) {
+        careMapper.delete(careId);
     }
 }

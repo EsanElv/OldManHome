@@ -1,10 +1,9 @@
 package com.example.oldpeoplehome.mapper;
 
 import com.example.oldpeoplehome.dto.CareAddDTO;
+import com.example.oldpeoplehome.dto.CareUpdateDTO;
 import com.example.oldpeoplehome.pojo.Care;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -28,4 +27,10 @@ public interface CareMapper {
     @Insert("INSERT INTO care (man_id,nur_id,content,time)"+
             "values(#{manId},#{nurId},#{content},NOW())")
     void add(CareAddDTO careAddDTO);
+
+    @Update("update care set content = #{content}, time = NOW() where id = #{careId}")
+    void update(CareUpdateDTO careUpdateDTO);
+
+    @Delete("delete from care where id = #{careId}")
+    void delete(Integer careId);
 }

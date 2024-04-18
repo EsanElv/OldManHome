@@ -41,4 +41,7 @@ public interface UserMapper {
             "</script>"
     })
     void update(User user);
+
+    @Delete("delete from user where user_id = #{userId}")
+    void delete(Integer userId);
 }

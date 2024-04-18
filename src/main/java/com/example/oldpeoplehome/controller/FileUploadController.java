@@ -13,9 +13,11 @@ public class FileUploadController {
     @PostMapping("/upload")
     public Result<String> upload(MultipartFile file) throws Exception {
         String originalFilename = file.getOriginalFilename();
+        System.out.println(originalFilename);
         //保证文件的名字是唯一的，防止文件覆盖
         String filename = UUID.randomUUID().toString() + originalFilename.substring(originalFilename.lastIndexOf("."));
         String URL = AliOssUtil.uploadFile(filename, file.getInputStream());
+        System.out.println(URL);
         return Result.success(URL);
     }
 }

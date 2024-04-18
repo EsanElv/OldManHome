@@ -3,6 +3,7 @@ package com.example.oldpeoplehome.utils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.example.oldpeoplehome.pojo.Result;
 
 import java.util.Date;
 import java.util.Map;
@@ -28,4 +29,13 @@ public class JwtUtil {
                 .asMap();
     }
 
+    public static Integer checkToken(String token, Integer type){
+        Map<String,Object> claims = parseToken(token);
+        Integer id = (Integer) claims.get("id");
+        Integer typeInToken = (Integer) claims.get("type");
+        if(type != typeInToken){
+            return -1;
+        }
+        return id;
+    }
 }

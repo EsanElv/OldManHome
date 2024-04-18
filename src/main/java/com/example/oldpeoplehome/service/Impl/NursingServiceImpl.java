@@ -90,10 +90,10 @@ public class NursingServiceImpl implements NursingService {
         for (Field field : fields) {
             field.setAccessible(true);
             if (field.getName().equals("id") ||
-                    field.getName().equals("username") ||
+                    field.getName().equals("phone") ||
                     field.getName().equals("password") ||
                     field.getName().equals("avatar")) {
-                continue; // 跳过id属性
+                continue; // 跳过user中的属性，只检查visitor中特有的属性
             }
             try {
                 Object value = field.get(nurUpdateDTO);
@@ -123,6 +123,14 @@ public class NursingServiceImpl implements NursingService {
         if(noNeedToUpdateNursing && noNeedToUpdateUser){
             return Result.error("请更改至少一条信息");
         }
+        return Result.success();
+    }
+
+    @Override
+    public Result delete(Integer id) {
+        Nursing nursing = nursingMapper.find(id, null, null);
+        nursingMapper.delete(id);
+        userMapper.delete(nursing.getUserId());
         return Result.success();
     }
 

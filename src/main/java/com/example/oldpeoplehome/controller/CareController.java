@@ -2,6 +2,7 @@ package com.example.oldpeoplehome.controller;
 
 import com.example.oldpeoplehome.dto.CareAddDTO;
 import com.example.oldpeoplehome.dto.CareDTO;
+import com.example.oldpeoplehome.dto.CareUpdateDTO;
 import com.example.oldpeoplehome.pojo.Care;
 import com.example.oldpeoplehome.pojo.Nursing;
 import com.example.oldpeoplehome.pojo.OldMan;
@@ -10,11 +11,13 @@ import com.example.oldpeoplehome.service.CareService;
 import com.example.oldpeoplehome.service.NursingService;
 import com.example.oldpeoplehome.service.OldManService;
 import com.example.oldpeoplehome.utils.JwtUtil;
+import com.example.oldpeoplehome.utils.ThreadLocalUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.management.relation.RelationSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -91,6 +94,30 @@ public class CareController {
         }
 
         careService.add(careAddDTO);
+        return Result.success();
+    }
+
+    @PatchMapping("/update")
+    public Result careUpdate(@RequestBody CareUpdateDTO careUpdateDTO){
+        Map<String,Object> claims = ThreadLocalUtil.get();
+        Integer type = (Integer) claims.get("type");
+        if(type != 2 && type !=3){
+            return Result.error("Type error!");
+        }
+        System.out.println("当前的type是："+type);
+        System.out.println(careUpdateDTO);
+        careService.update(careUpdateDTO);
+        return Result.success();
+    }
+
+    @DeleteMapping("/delete")
+    public Result deleteCare(Integer careId){
+        Map<String,Object> claims = ThreadLocalUtil.get();
+        Integer type = (Integer) claims.get("type");
+        if(type != 2 && type !=3){
+            return Result.error("Type error!");
+        }
+        careService.delete(careId);
         return Result.success();
     }
 }
